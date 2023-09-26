@@ -1,0 +1,145 @@
+@extends('layouts.paneladmin')
+
+@section('title', 'Dashboard')
+
+@section('content_header')
+    <h1>Profile</h1>
+@stop
+
+@section('content')
+
+<div class="container">
+
+  <div class="content-wrapper">
+      <section class="content-header">
+          <div class="container-fluid">
+              <div class="row mb-2">
+                  <div class="col-sm-6">
+                      <h1 class="m-0">Seja bem-vindo! {{ auth()->user()->name}}</h1>
+                  </div>
+                  <div class="col-sm-6">
+                      <ol class="breadcrumb float-sm-right">
+                          <li class="breadcrumb-item active">Profile</li>
+                          <li class="breadcrumb-item active"><a href="/public/admin/homeadmin">Inicio</a></li>
+                      </ol>
+                  </div>
+              </div>
+          </div>
+      </section>
+
+      <section class="content-header">
+          <div class="container-fluid">
+              <div class="row">
+            
+                  <div class="col-md-3">
+                      <div class="card card-primary card-outline">
+                          <div class="card-body box-profile">
+                              <div class="text-center">
+                              <img class="profile-user-img img-fluid img-circle" src="{{asset('public/vendor/img/avatar.jpg')}}" style="width: 100%">
+                                  @if (Session::get('lg_foto'))
+                                  <img class="profile-user-img img-fluid img-circle" src="{{asset('img/usuarios')}}/{{ Session::get('lg_nome_foto') }}" style="width: 100%">
+                                  @else
+                                  <img class="profile-user-img img-fluid img-circle" src="{{asset('img/avatar.png') }}" style="width: 100%">
+                                  @endif
+                              </div>
+                              <h3 class="profile-username text-center"></h3>
+                              <p class="text-muted text-center"></p>
+                          </div>
+                      </div>
+                  </div>
+
+
+                  <div class="col-md-9">
+                      <div class="card">
+
+                          <div class="card-header p-2">
+                              <ul class="nav nav-pills">
+                              <li class="nav-item"><a class="nav-link" href="#notificao" data-toggle="tab">Notificações</a></li>
+                                  <li class="nav-item"><a class="nav-link" href="#dados" data-toggle="tab">Meus dados</a></li>
+                                  <li class="nav-item"><a class="nav-link" href="#login" data-toggle="tab">Meu login</a></li>
+                                  <li class="nav-item"><a class="nav-link" href="#avatar" data-toggle="tab">Notificações</a></li>
+                              </ul>
+                          </div>
+
+                          <div class="card-body">
+                              <div class="tab-content">
+                                  <div class="tab-pane" id="dados">
+                                      <form class="form-horizontal" action="/paneladmin/p-usuarios-profile-salva-dados" method="POST">
+                                          @csrf
+                                          <div class="form-group row">
+                                              <labe for="nome" class="col-sm-2 col-form-label" style="text-aligne: right;">Nome: </labe>
+                                              <div class="col-sm-6">
+                                                  <input type="text" required name="nome" id="nome" class="form-control" placeholder="Nome" value="{{ auth()->user()->name}}">
+                                              </div>
+                                          </div>
+                                         
+                                          <div class="form-group row">
+                                              <labe for="email" class="col-sm-2 col-form-label" style="text-aligne: right;">Email: </labe>
+                                              <div class="col-sm-4">
+                                                  <input type="email" required name="email" id="email" class="form-control" placeholder="Email" value="{{ auth()->user()->email}}">
+                                              </div>
+                                          </div>
+                                          <div class="form-group row">
+                                              <div class="offset-sm-2 col-sm-10">
+                                                  <button type="submit" class="btn btn-success">Salvar</button>
+                                              </div>
+                                          </div>
+                                      </form>
+                                  </div>
+                                  
+                                  <div class="tab-pane" id="login">
+                                      <form class="form-horizontal" action="/paneladmin/p-usuarios-profile-salva-senha" method="POST">
+                                          @csrf
+                                          <div class="form-group row">
+                                              <labe for="nmusuario" class="col-sm-2 col-form-label" style="text-aligne: right;">Usuário: </labe>
+                                              <div class="col-sm-6">
+                                                  <input type="text" required name="nmusuario" id="nmusuario" class="form-control" placeholder="Nome" value="">
+                                              </div>
+                                          </div>
+                                          <div class="form-group row">
+                                              <labe for="passatual" class="col-sm-2 col-form-label" style="text-aligne: right;">Senha Atual: </labe>
+                                              <div class="col-sm-4">
+                                                  <input type="password" required name="passatual" id="passatual" class="form-control" value="">
+                                              </div>
+                                          </div>
+                                          <div class="form-group row">
+                                              <labe for="passnova" class="col-sm-2 col-form-label" style="text-aligne: right;">Nova Senha: </labe>
+                                              <div class="col-sm-4">
+                                                  <input type="password" required name="passnova" id="passnova" class="form-control" value="">
+                                              </div>
+                                          </div>
+                                          <div class="form-group row">
+                                              <div class="offset-sm-2 col-sm-10">
+                                                  <button type="submit" class="btn btn-success">Salvar</button>
+                                              </div>
+                                          </div>
+                                    </form>
+                                  </div>
+                                  <div class="tab-pane" id="notificao">
+                                      <div class="col-sm-12" style="text-align: center;">
+                                        <a href="/paneladmin/p-usuarios-profile-foto" class="btn btn-success">Alterar a Foto</a>
+                                      </div>
+                                  </div>
+
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+
+
+
+              </div>
+          </div>
+      </section>
+  </div>
+</div>
+  @endsection
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop

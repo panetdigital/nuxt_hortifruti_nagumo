@@ -1,0 +1,110 @@
+@extends('templates.template')
+<!--title dinamico-->
+@section('title') {{'Busca Produto'}} @endsection
+@section('content')
+
+<!-- @foreach ( $nagumo as $produto)
+	<p>{{$produto->cod}}</p>
+	<p>{{$produto->nome}}</p>
+@endforeach -->
+
+<div class="container">
+
+            <!--inicio header de login--> 
+            <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
+                        @if (Route::has('login'))
+                            <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
+                                @auth
+                                    <a href="{{ url('/home') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Home</a>
+                                @else
+                                    <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Entrar</a>
+
+                                    @if (Route::has('register'))
+                                        <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Registra</a>
+                                    @endif
+                                @endauth
+                            </div>
+                        @endif
+            </div>
+                <!--fim header de login-->        
+		<style>
+			.navbar-brand {
+   
+    		margin-left: 36%;
+		}
+		</style>
+		<!--css de img bd-->
+		<style>
+		.img200-200{
+			width: 200px;
+		}
+
+	  </style> 
+		<nav class="navbar bg-body-tertiary center">
+			<div class="container center">
+			  <a class="navbar-brand center" href="#">
+				<img src="https://teste.promocaoonline.club/img/logoHortifrut.jpg" alt="Bootstrap" width="110" height="90">
+			  </a>
+			</div>
+		  </nav>
+
+				<form method="POST" id="form-pesquisa" action="buscar-produto.php">
+					<div class="form-group">
+						<a href="https://teste.promocaoonline.club/teste-promo/buscarcode/buscar-code.html">Buscar pelo code</a><br>
+						<label>Buscar pelo nome : </label>
+						<input type="text" class="form-control" name="pesquisa" id="pesquisa"
+						onkeyup="carregar_produtos(this.value)" placeholder="Pesquisa o nome de produtos">
+						<span id="resultado_pesquisa"></span>
+
+						<div class=text-right>
+							<button type="submit" class="btn btn-info">Pesquisar</button>
+					    </div><br>
+						
+						<input type="hidden" name="id_usuario" class="form-control" id="id_usuario">
+				    </div>
+
+				</form>
+	
+	<!--Resultado de busca-->    
+
+	<ul class="resultado">
+	
+	</ul>
+	
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity=""></script>
+	<script src="js_custom.js"></script>
+
+</div>
+<!--Criei margem falso pra da espaço com rodapé-->
+<div class="mx-auto"style="height: 200px;"></div>
+	<!--Footer--> 
+	
+	<footer class="bg-dark text-light">
+		<div class="container">
+		
+		  
+		  <div class="text-justify alert alert-ligh"  role="alert">
+			<a href="https://teste.promocaoonline.club/teste-promo/cadastro_frutas.html  ">Cadastro Produto</a><br>
+			<a href="https://teste.promocaoonline.club/listar_produtos.php  ">Lista Produtos</a><br>
+			<a href="https://teste.promocaoonline.club/lista_frutas.php  ">Filtra Frutas</a><br>
+			<a href="https://teste.promocaoonline.club/lista_legumes.php  ">Filtra Legumes</a><br><hr><br>
+			
+			<p>
+				Procurar informações sobre código
+				 de frutas e legumes, referente  balança hortifruti Nagumo.
+				
+			</p>
+			<ul class="nav">
+			  <li class="nav-link"><i class="fab fa-twitter fa-3x"></i>Email: cherifbekopanda@gmail.com</li>
+			  <li class="nav-link"><i class="fab fa-whatsapp fa-3x">whatsapp:(11)977778331</i></li>
+			</ul>
+		  </div>
+		
+		</div>
+		<div class="text-center" style="background-color: #333; padding: 20px;" >
+		  &copy 2023 Copyright: <a href="#">by Sherif Panda</a>
+		</div>
+	  </footer>
+</div>
+@endsection
