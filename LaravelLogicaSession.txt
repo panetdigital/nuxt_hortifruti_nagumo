@@ -1,0 +1,41 @@
+CRIACAO DE AUTORIZACAO OU SESSION
+1. Dentro route: web 
+ route:Route::get('/admin/efetua-login',[App\Http\Controllers\usuariosController::class,'efetlogin']);
+-------------------
+Homecontroller : acressenter codigo para leva no usuarioController
+
+public function index()
+    {
+
+          $user = auth()->user();
+          $dados = $user->ativo; 
+
+          Session::put('lg_logado', true);
+
+          if($dados) {
+            Session::put('lg_logado', true);
+            return view('home');
+           
+        } else {
+           
+            return redirect('/admin/efetua-login');
+
+        }
+         
+       
+    }
+--------------usuarioController----------------
+//EFETUAR LOGIN
+
+ public function efetlogin(){
+       
+
+        if(!Session::get('lg_logado')) {
+                return redirect('/login');
+           
+        } else {
+                echo 'Agarde autorização de administrador obrigado!';
+                //return redirect('/admin/usuarios');
+              //  return view('home');
+        }     
+     }
